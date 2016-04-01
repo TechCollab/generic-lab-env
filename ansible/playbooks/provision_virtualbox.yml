@@ -1,0 +1,46 @@
+---
+- name: Provision virtualbox host
+  user: root
+  hosts: localhost
+
+  tasks:
+  - name: Update the system
+    yum: name=* state=latest
+
+  - name: Install EPEL repo
+    yum: 
+      name: "epel-release"
+      state: 'present'
+
+  - name: Get virtualbox.repo
+    command: 'cd /etc/yum.repos.d; wget http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo'
+
+  - name: VirtualBox signing key
+    rpm_key: 
+      key: //www.virtualbox.org/download/oracle_vbox.asc
+      state: 'present'
+
+  - name: Install "Development Tools"
+    yum:
+      name: "@development"
+      state: 'present'
+
+  - name: Install "kernel-devel, dkms"
+    yum:
+      name: '{{ item }}'
+      state: 'present'
+    with_items:
+      - kernel-devel
+      - dkms
+
+  - name: Install VirtualBox
+    yum:
+      name: "VirtualBox-5.0"
+      state: 'present'
+
+  - name: Install vagrant and required libraries
+    yum:
+      name: '{{ item }}'
+      state: 'present'
+    with_items:
+      - https://releases.hashicorp.com/vagrant/1.8.1/vagrant_1.8.1_x86_64.rpm
