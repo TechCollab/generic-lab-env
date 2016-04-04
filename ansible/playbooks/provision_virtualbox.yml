@@ -4,8 +4,6 @@
   hosts: localhost
 
   tasks:
-    yum: name=* state=latest
-
   - name: Install EPEL repo
     yum:
       name: "epel-release"
