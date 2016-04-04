@@ -187,8 +187,8 @@ assert_prerequisites() {
   fi
 
   # Check if the system is up to date
-  yum check-update
-  if [[ $? -eq 0 ]]; then
+  yum check-update  ||  { rc1="$?"; true; }
+  if [[ $rc1 -eq 0 ]]; then
     ok_msg "System is up to date. \n"
   else
     _gnrl_die "Update your system to latest!\n"
