@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 #===================================================================================
-# USAGE: 
+# USAGE:
 #   chmod +x <file_name>.sh
 #   ./<file_name>.sh
-# DESCRIPTION: 
+# DESCRIPTION:
 #       This script bootstraps hypervisior host (virtualbox version)
 # OPTIONS: none
 # AUTHOR: Boyko Boykov, boyko.boykov@gmail.com
@@ -66,12 +66,12 @@ _file_contains() {
   _gnrl_assert_file_exists "${file}"
 
   local add_filter="${3:-}"
-  if [[ $add_filter ]]; then 
+  if [[ $add_filter ]]; then
     filter="^#|^$|$add_filter"
-    grep -Ev "$filter"  "${file}" | grep -Eq "^${pattern}$" 
+    grep -Ev "$filter"  "${file}" | grep -Eq "^${pattern}$"
     rc=$?
   else
-    grep -Eq "^${pattern}$" "${file}" 
+    grep -Eq "^${pattern}$" "${file}"
     rc=$?
   fi
   [[ $rc -ne 0 ]] && [[ $rc -ne 1 ]] && _gnrl_die "$FUNCNAME: Something went wrong greping. Exits with $rc."
@@ -100,11 +100,11 @@ _gnrl_assert_is_installed() {
 # === FUNCTION ================================================================
 # _print "$msg"
 _print() {
-  local regex='\\e\[' # because of coloring 
+  local regex='\\e\[' # because of coloring
   if [[ "$@" =~ $regex ]]; then
-    printf "$@\n"  # because of coloring 
+    printf "$@\n"  # because of coloring
   else
-    printf "%s\n" "$@" 
+    printf "%s\n" "$@"
   fi
 }
 # === FUNCTION ================================================================
@@ -139,8 +139,8 @@ install_ansible() {
 
   local id_rsa="$HOME/.ssh/id_rsa.pub"
   ### Double check
-  if _file_does_not_exists "$id_rsa"; then  
-    _gnrl_die "$id_rsa not found. Failed to create RSA key pair." 
+  if _file_does_not_exists "$id_rsa"; then
+    _gnrl_die "$id_rsa not found. Failed to create RSA key pair."
   fi
 
   ### Check if there is already passwordless ssh connection
@@ -156,7 +156,7 @@ install_ansible() {
     ssh-copy-id -i $id_rsa localhost ||  _gnrl_die "Something went wrong. Debug"
     ### Test passwordless ssh connection
     ssh -n -o 'PreferredAuthentications=publickey'  localhost -C 'echo' > /dev/null 2>&1
-    [[ $? -ne 0 ]] && _gnrl_die "Passwordless login setup failed.\n" 
+    [[ $? -ne 0 ]] && _gnrl_die "Passwordless login setup failed.\n"
     ch_msg "Passwordless ssh to localhost has been established.\n"
   fi
 
@@ -250,4 +250,5 @@ COMMANDS
 _main
 
 exit 0
+
 
