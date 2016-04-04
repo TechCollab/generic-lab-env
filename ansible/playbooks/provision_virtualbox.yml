@@ -13,11 +13,11 @@
       state: 'present'
 
   - name: Get virtualbox.repo
-    command: 'cd /etc/yum.repos.d; wget http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo'
+    shell: 'cd /etc/yum.repos.d; wget http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo'
 
   - name: VirtualBox signing key
     rpm_key: 
-      key: //www.virtualbox.org/download/oracle_vbox.asc
+      key: http://www.virtualbox.org/download/oracle_vbox.asc
       state: 'present'
 
   - name: Install "Development Tools"
