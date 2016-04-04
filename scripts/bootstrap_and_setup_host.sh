@@ -186,6 +186,13 @@ assert_prerequisites() {
     _gnrl_die "Internet connection is NOT available(google.com)\n"
   fi
 
+  # Check if the system is up to date
+  yum check-update
+  if [[ $? -eq 0 ]]; then
+    ok_msg "System is up to date. \n"
+  else
+    _gnrl_die "Update your system to latest!\n"
+  fi
 }
 #===================================================================================
 ###  main
@@ -217,10 +224,7 @@ fi
 ok_msg "Running \"ansible-playbook -i ansible/hosts $_WORKDIR/ansible/playbooks/provision_virtualbox.yml\""
 ansible-playbook -i "ansible/hosts" "$_WORKDIR/ansible/playbooks/provision_virtualbox.yml"
 
-ok_msg "Env is ready. Do:\n
-  cd $_WORKDIR
-  vagrant up  --provider virtualbox\n
-"
+ok_msg "Env is ready. \n THE END.\n"
 }
 #===================================================================================
 # Set strict mode and somo common vars
