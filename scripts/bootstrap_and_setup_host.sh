@@ -164,6 +164,8 @@ install_ansible() {
 # === FUNCTION ================================================================
 assert_prerequisites() {
 
+  local rc1=0
+  
   # Check OS
   if _file_exists "/etc/redhat-release" && _file_contains ".*release.*7.*" "/etc/redhat-release" ; then
     ok_msg "$(cat /etc/redhat-release;)\n"
