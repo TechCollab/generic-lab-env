@@ -191,7 +191,7 @@ assert_prerequisites() {
   if [[ $rc1 -eq 0 ]]; then
     ok_msg "System is up to date. \n"
   else
-    _gnrl_die "Update your system to latest!\n"
+    _gnrl_die "You must update your system to latest before you can proceed.\n"
   fi
 }
 #===================================================================================
