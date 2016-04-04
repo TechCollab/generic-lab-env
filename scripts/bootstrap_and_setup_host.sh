@@ -42,7 +42,7 @@ _file_exists() {
   [[ -f "${1:-}" ]]
 }
 # === FUNCTION ================================================================
-_file_does_not_exists() {
+_file_does_not_exist() {
   [[ ! -f "${1:-}" ]]
 }
 # === FUNCTION ================================================================
@@ -129,7 +129,7 @@ install_ansible() {
   _gnrl_assert_command_is_available ansible-playbook
   _gnrl_assert_command_is_available ssh-keyscan
 
-  if  _file_does_not_exists "$HOME/.ssh/id_rsa.pub"; then
+  if  _file_does_not_exist "$HOME/.ssh/id_rsa.pub"; then
     ### This will generate RSA key pair on the host you're running the script.
     ch_msg "Generating RSA key pair\n"
     ssh-keygen -N '' -t rsa -f $HOME/.ssh/id_rsa
@@ -139,7 +139,7 @@ install_ansible() {
 
   local id_rsa="$HOME/.ssh/id_rsa.pub"
   ### Double check
-  if _file_does_not_exists "$id_rsa"; then
+  if _file_does_not_exist "$id_rsa"; then
     _gnrl_die "$id_rsa not found. Failed to create RSA key pair."
   fi
 
