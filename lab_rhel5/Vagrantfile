@@ -1,0 +1,16 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.box = "jasonish/centos5-x64-minimal"
+
+  config.vm.define :cli01 do |cli01|
+    cli01.vm.hostname = "cli01"
+    cli01.vm.network :private_network, ip: "192.168.55.50"
+  end
+
+  config.vm.define :cli02 do |cli02|
+    cli02.vm.hostname = "cli02"
+    cli02.vm.network :private_network, ip: "192.168.55.51"
+  end
+end

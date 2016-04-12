@@ -1,0 +1,16 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.box = "szops/centos-6-x86_64"
+
+  config.vm.define :cli03 do |cli03|
+    cli03.vm.hostname = "cli03"
+    cli03.vm.network :private_network, ip: "192.168.55.53"
+  end
+
+  config.vm.define :cli04 do |cli04|
+    cli04.vm.hostname = "cli04"
+    cli04.vm.network :private_network, ip: "192.168.55.54"
+  end
+end
