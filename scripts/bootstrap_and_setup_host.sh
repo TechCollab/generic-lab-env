@@ -220,7 +220,7 @@ else
   cd "${_WORKDIR}" || _gnrl_die "cd \"${_WORKDIR}\" went wrong. Debug"
 fi
 
-
+#ansible-galaxy install -r requirements.yml
 
 # Provision hypervisor host(localhost)
 ok_msg "Running \"ansible-playbook -i ansible/hosts $_WORKDIR/ansible/playbooks/provision_virtualbox.yml\""

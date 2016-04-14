@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "centos/7"
+  config.vm.box = "szops/centos-6-x86_64"
 
   config.vm.define :latin do |latin|
     latin.vm.hostname = "latin"
