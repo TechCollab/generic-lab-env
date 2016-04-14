@@ -5,7 +5,8 @@
 #
 
 readonly wordlist='wordlist_5'
-readonly domain='example.com'
+#readonly domain='example.com'
+readonly domain='penguin.example.com'
 
 # http://mywiki.wooledge.org/BashFAQ/026
 

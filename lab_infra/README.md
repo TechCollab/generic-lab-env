@@ -1,7 +1,11 @@
 
 
+Networks:
+Vagrant default NAT network 
+192.168.55.10/24 penguin.example.com 
 
-Multi Purpose Server:    
+
+Multi Purpose Server 1 (latin):
 
   DNS Server
 	dns.penguin.example.com
@@ -10,7 +14,7 @@ Multi Purpose Server:
    
   HTTP Repository  
 
-Multi Purpose Server:    
+Multi Purpose Server 2 (crack):    
 
   NFS Server  
         nfs01.penguin.example.com 
