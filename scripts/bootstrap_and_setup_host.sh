@@ -234,8 +234,8 @@ ansible-playbook -i "ansible/hosts" ansible/playbooks/provision_virtualbox.yml |
 
 # Install ansible roles
 _gnrl_assert_file_exists "ansible/requirements.yml"
-ok_msg "Running \"ansible-galaxy install -r ansible/requirements.yml\"" 
-ansible-galaxy install -r ansible/requirements.yml || { true; }
+ok_msg "Running \"ansible-galaxy install --force -r ansible/requirements.yml\"" 
+ansible-galaxy install --force -r ansible/requirements.yml || { true; }
 
 ok_msg "\n THE END.\n"
 }
