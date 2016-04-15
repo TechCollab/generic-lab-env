@@ -174,6 +174,16 @@ install_ansible() {
 
 }
 # === FUNCTION ================================================================
+assert_system_is_latest() {
+  # Check if the system is up to date
+  yum check-update  ||  { rc1="$?"; true; }
+  if [[ $rc1 -eq 0 ]]; then
+    ok_msg "System is up to date. \n"
+  else
+    _gnrl_die "You must update your system to latest and reboot.\n"
+  fi
+}
+# === FUNCTION ================================================================
 assert_prerequisites() {
 
   local rc1=0
@@ -199,14 +209,6 @@ assert_prerequisites() {
   else
     _gnrl_die "Internet connection is NOT available(google.com)\n"
   fi
-
-  # Check if the system is up to date
-  yum check-update  ||  { rc1="$?"; true; }
-  if [[ $rc1 -eq 0 ]]; then
-    ok_msg "System is up to date. \n"
-  else
-    _gnrl_die "You must update your system to latest and reboot.\n"
-  fi
 }
 #===================================================================================
 ###  main
@@ -224,6 +226,7 @@ install_ansible
 
 # Provision hypervisor host(localhost)
 _gnrl_assert_file_exists "ansible/playbooks/provision_virtualbox.yml"
+assert_system_is_latest
 ok_msg "Running \"ansible-playbook -i ansible/hosts ansible/playbooks/provision_virtualbox.yml\""
 ansible-playbook -i "ansible/hosts" ansible/playbooks/provision_virtualbox.yml
 
@@ -232,7 +235,7 @@ _gnrl_assert_file_exists "ansible/requirements.yml"
 ok_msg "Running \"ansible-playbook -i ansible/hosts ansible/playbooks/provision_virtualbox.yml\""
 ansible-galaxy install -r ansible/requirements.yml
 
-ok_msg "Env is ready. \n THE END.\n"
+ok_msg "\n THE END.\n"
 }
 #===================================================================================
 # Set strict mode and somo common vars
