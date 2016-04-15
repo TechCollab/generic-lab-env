@@ -1,7 +1,7 @@
 # infra 
 This vagrant setup will play the role of infrastrucure/support for all lab variants  
 
-# Networks  
+## Networks  
 Vagrant default NAT network   
 192.168.55.0/24 penguin.example.com   
 
