@@ -175,6 +175,9 @@ install_ansible() {
 }
 # === FUNCTION ================================================================
 assert_system_is_latest() {
+
+  local rc1=0
+
   # Check if the system is up to date
   yum check-update  ||  { rc1="$?"; true; }
   if [[ $rc1 -eq 0 ]]; then
@@ -186,7 +189,6 @@ assert_system_is_latest() {
 # === FUNCTION ================================================================
 assert_prerequisites() {
 
-  local rc1=0
   
   # Check OS
   if _file_exists "/etc/redhat-release" && _file_contains ".*release.*7.*" "/etc/redhat-release" ; then
@@ -227,13 +229,13 @@ install_ansible
 # Provision hypervisor host(localhost)
 _gnrl_assert_file_exists "ansible/playbooks/provision_virtualbox.yml"
 assert_system_is_latest
-ok_msg "Running \"ansible-playbook -i ansible/hosts ansible/playbooks/provision_virtualbox.yml\""
-ansible-playbook -i "ansible/hosts" ansible/playbooks/provision_virtualbox.yml
+ok_msg "Running \"ansible-playbook -i ansible/hosts ansible/playbooks/provision_virtualbox.yml\"" 
+ansible-playbook -i "ansible/hosts" ansible/playbooks/provision_virtualbox.yml || _gnrl_die "Went wrong. Debug"
 
 # Install ansible roles
 _gnrl_assert_file_exists "ansible/requirements.yml"
-ok_msg "Running \"ansible-playbook -i ansible/hosts ansible/playbooks/provision_virtualbox.yml\""
-ansible-galaxy install -r ansible/requirements.yml
+ok_msg "Running \"ansible-galaxy install -r ansible/requirements.yml\"" 
+ansible-galaxy install -r ansible/requirements.yml || { true; }
 
 ok_msg "\n THE END.\n"
 }
