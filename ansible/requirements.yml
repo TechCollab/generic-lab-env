@@ -1,0 +1,6 @@
+# Usage: `ansible-galaxy install -r  ansible/requirements.yml`
+# Examples: http://stackoverflow.com/questions/25230376/how-to-automatically-install-ansible-galaxy-roles
+
+- name: goozbach.EPEL
+  src: goozbach.EPEL
+  path: ansible/playbooks/roles/

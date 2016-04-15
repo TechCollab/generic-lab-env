@@ -46,6 +46,10 @@ _file_does_not_exist() {
   [[ ! -f "${1:-}" ]]
 }
 # === FUNCTION ================================================================
+_dir_does_not_exist() {
+  [[ ! -f "${1:-}" ]]
+}
+# === FUNCTION ================================================================
 _gnrl_assert_command_is_available() {
   local cmd=${1}
   type ${cmd} >/dev/null 2>&1 || _gnrl_die "Cancelling because required command '${cmd}' is not available."
@@ -118,6 +122,14 @@ ch_msg() {
   local txtrst='\e[0m'    # Text Reset
   local txtylw='\e[0;33m' # Yellow  - Regular
   _print "${txtylw}change:  $@ ${txtrst}\n"
+}
+# === FUNCTION ================================================================
+usage() {
+cat << EOF
+`basename $0` is script to check and/or setup your host
+Usage:
+`basename $0` /path/to/repo/main/dir
+EOF
 }
 # === End of support funcs
 # === FUNCTION ================================================================
@@ -210,21 +222,15 @@ _gnrl_assert_command_is_available git
 install_ansible
 
 
-_WORKDIR="$PWD/generic_test_lab"
-if [[ ! -d $_WORKDIR ]]; then
-  ch_msg "git clone https://github.com/bboykov/generic_test_lab.git \n"
-  git clone https://github.com/bboykov/generic_test_lab.git > /dev/null || _gnrl_die "Something went wrong. Debug"
-  cd "${_WORKDIR}" || _gnrl_die "cd \"${_WORKDIR}\" went wrong. Debug"
-else
-  ok_msg "$PWD/generic_test_lab already exists\n"
-  cd "${_WORKDIR}" || _gnrl_die "cd \"${_WORKDIR}\" went wrong. Debug"
-fi
-
-#ansible-galaxy install -r requirements.yml
-
 # Provision hypervisor host(localhost)
-ok_msg "Running \"ansible-playbook -i ansible/hosts $_WORKDIR/ansible/playbooks/provision_virtualbox.yml\""
-ansible-playbook -i "ansible/hosts" "$_WORKDIR/ansible/playbooks/provision_virtualbox.yml"
+_gnrl_assert_file_exists "ansible/playbooks/provision_virtualbox.yml"
+ok_msg "Running \"ansible-playbook -i ansible/hosts ansible/playbooks/provision_virtualbox.yml\""
+ansible-playbook -i "ansible/hosts" ansible/playbooks/provision_virtualbox.yml
+
+# Install ansible roles
+_gnrl_assert_file_exists "ansible/requirements.yml"
+ok_msg "Running \"ansible-playbook -i ansible/hosts ansible/playbooks/provision_virtualbox.yml\""
+ansible-galaxy install -r ansible/requirements.yml
 
 ok_msg "Env is ready. \n THE END.\n"
 }
@@ -235,7 +241,19 @@ _gnrl_init_strict_mode
 # Exit if not root:
 _gnrl_assert_running_as_root
 
-[[ $# -ne 0 ]] && _gnrl_die "Arguments? That is not expected!"
+
+# Argument validation 
+[[ $# -ne 1 ]] && usage && _gnrl_die "Repositorie's full path is expected as argument."
+
+_WORKDIR="$1"
+if [[ ! -d $_WORKDIR ]]; then
+  usage 
+  _gnrl_die "\"${_WORKDIR}\" does not exist"
+else
+  ok_msg "${_WORKDIR} exists. Changing dir to ${_WORKDIR}\n"
+  cd "${_WORKDIR}" || _gnrl_die "cd \"${_WORKDIR}\" went wrong. Debug"
+fi
+
 
 # Check if all common commands are available
 while read _command
