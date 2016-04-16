@@ -4,13 +4,13 @@
 Vagrant.configure(2) do |config|
   config.vm.box = "szops/centos-6-x86_64"
 
-  config.vm.define :cli03 do |cli03|
-    cli03.vm.hostname = "cli03"
-    cli03.vm.network :private_network, ip: "192.168.55.53"
+  config.vm.define :balsa do |balsa|
+    balsa.vm.hostname = "balsa"
+    balsa.vm.network :private_network, ip: "192.168.55.30"
   end
 
-  config.vm.define :cli04 do |cli04|
-    cli04.vm.hostname = "cli04"
-    cli04.vm.network :private_network, ip: "192.168.55.54"
+  config.vm.define :benny do |benny|
+    benny.vm.hostname = "benny"
+    benny.vm.network :private_network, ip: "192.168.55.31"
   end
 end

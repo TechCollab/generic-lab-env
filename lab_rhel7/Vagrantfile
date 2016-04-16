@@ -4,13 +4,13 @@
 Vagrant.configure(2) do |config|
   config.vm.box = "centos/7"
 
-  config.vm.define :cli05 do |cli05|
-    cli05.vm.hostname = "cli05"
-    cli05.vm.network :private_network, ip: "192.168.55.55"
+  config.vm.define :morph do |morph|
+    morph.vm.hostname = "morph"
+    morph.vm.network :private_network, ip: "192.168.55.40"
   end
 
-  config.vm.define :cli06 do |cli06|
-    cli06.vm.hostname = "cli06"
-    cli06.vm.network :private_network, ip: "192.168.55.56"
+  config.vm.define :flute do |flute|
+    flute.vm.hostname = "flute"
+    flute.vm.network :private_network, ip: "192.168.55.41"
   end
 end

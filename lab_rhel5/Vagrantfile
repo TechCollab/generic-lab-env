@@ -4,13 +4,13 @@
 Vagrant.configure(2) do |config|
   config.vm.box = "jasonish/centos5-x64-minimal"
 
-  config.vm.define :cli01 do |cli01|
-    cli01.vm.hostname = "cli01"
-    cli01.vm.network :private_network, ip: "192.168.55.50"
+  config.vm.define :charm do |charm|
+    charm.vm.hostname = "charm"
+    charm.vm.network :private_network, ip: "192.168.55.20"
   end
 
-  config.vm.define :cli02 do |cli02|
-    cli02.vm.hostname = "cli02"
-    cli02.vm.network :private_network, ip: "192.168.55.51"
+  config.vm.define :shelf do |shelf|
+    shelf.vm.hostname = "shelf"
+    shelf.vm.network :private_network, ip: "192.168.55.21"
   end
 end
