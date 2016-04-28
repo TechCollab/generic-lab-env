@@ -141,6 +141,37 @@ install_ansible() {
   _gnrl_assert_command_is_available ansible-playbook
   _gnrl_assert_command_is_available ssh-keyscan
 
+  if  _file_does_not_exist "$HOME/.ssh/id_rsa.pub"; then
+    ### This will generate RSA key pair on the host you're running the script.
+    ch_msg "Generating RSA key pair\n"
+    ssh-keygen -N '' -t rsa -f $HOME/.ssh/id_rsa
+  else
+    ok_msg "RSA key pair exist\n"
+  fi
+
+  local id_rsa="$HOME/.ssh/id_rsa.pub"
+  ### Double check
+  if _file_does_not_exist "$id_rsa"; then
+    _gnrl_die "$id_rsa not found. Failed to create RSA key pair."
+  fi
+
+  ### Check if there is already passwordless ssh connection
+  local rc1=0
+  ssh -n -o 'PreferredAuthentications=publickey' -o 'StrictHostKeyChecking=no'  localhost -C 'echo' > /dev/null 2>&1 || { rc1="$?"; true; }
+  if [[ $rc1 -eq 0 ]]; then
+    ok_msg "There is already passwordless login setup .\n"
+  else
+    ### copy the pub key to remote host
+    ch_msg "Setting up passwordless login\n"
+    ssh-keyscan localhost >> $HOME/.ssh/known_hosts
+    cat $id_rsa >> $HOME/.ssh/authorized_keys ||  _gnrl_die "Something went wrong. Debug"
+    ssh-copy-id -i $id_rsa localhost ||  _gnrl_die "Something went wrong. Debug"
+    ### Test passwordless ssh connection
+    ssh -n -o 'PreferredAuthentications=publickey'  localhost -C 'echo' > /dev/null 2>&1
+    [[ $? -ne 0 ]] && _gnrl_die "Passwordless login setup failed.\n"
+    ch_msg "Passwordless ssh to localhost has been established.\n"
+  fi
+
 }
 # === FUNCTION ================================================================
 assert_system_is_latest() {
@@ -196,15 +227,15 @@ install_ansible
 
 
 # Provision hypervisor host(localhost)
-_gnrl_assert_file_exists "playbooks/provision_virtualbox.yml"
+_gnrl_assert_file_exists "ansible/playbooks/provision_virtualbox.yml"
 assert_system_is_latest
-ok_msg "Running \"ansible-playbook playbooks/provision_virtualbox.yml\"" 
-ansible-playbook playbooks/provision_virtualbox.yml || _gnrl_die "Went wrong. Debug"
+ok_msg "Running \"ansible-playbook -i ansible/hosts ansible/playbooks/provision_virtualbox.yml\"" 
+ansible-playbook -i "ansible/hosts" ansible/playbooks/provision_virtualbox.yml || _gnrl_die "Went wrong. Debug"
 
 # Install ansible roles
-_gnrl_assert_file_exists "playbooks/requirements.yml"
-ok_msg "Running \"ansible-galaxy install --force -r playbooks/requirements.yml\"" 
-ansible-galaxy install --force -r playbooks/requirements.yml || { true; }
+_gnrl_assert_file_exists "ansible/requirements.yml"
+ok_msg "Running \"ansible-galaxy install --force -r ansible/requirements.yml\"" 
+ansible-galaxy install --force -r ansible/requirements.yml || { true; }
 
 ok_msg " THE END.\n"
 }

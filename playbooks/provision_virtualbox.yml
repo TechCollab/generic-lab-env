@@ -6,29 +6,24 @@
   tasks:
   - name: Install EPEL repo
     yum:
-      name: "epel-release"
+      name: '{{ item }}'
       state: 'present'
+    with_items:
+      - epel-release
+      - kernel-devel
+      - dkms
+      - @development
 
-  - name: Get virtualbox.repo
-    shell: 'cd /etc/yum.repos.d; wget http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo'
+  - name: Setup Virtualbox repo
+    copy: 
+      src: files/virtualbox.repo
+      dest: /etc/yum.repos.d/virtualbox.repo
+
 
   - name: VirtualBox signing key
     rpm_key:
       key: http://www.virtualbox.org/download/oracle_vbox.asc
       state: 'present'
-
-  - name: Install "Development Tools"
-    yum:
-      name: "@development"
-      state: 'present'
-
-  - name: Install "kernel-devel, dkms"
-    yum:
-      name: '{{ item }}'
-      state: 'present'
-    with_items:
-      - kernel-devel
-      - dkms
 
   - name: Install VirtualBox
     yum:
@@ -41,4 +36,3 @@
       state: 'present'
     with_items:
       - https://releases.hashicorp.com/vagrant/1.8.1/vagrant_1.8.1_x86_64.rpm
-
