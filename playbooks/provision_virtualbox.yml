@@ -1,7 +1,7 @@
 ---
 - name: Provision virtualbox host
   user: root
-  hosts: localhost
+  hosts: control
 
   tasks:
   - name: Install EPEL repo
