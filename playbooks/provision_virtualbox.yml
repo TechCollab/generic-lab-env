@@ -2,9 +2,11 @@
 - name: Provision virtualbox host
   user: root
   hosts: control
+  vars:
+    virtualbox_repo_key: "http://www.virtualbox.org/download/oracle_vbox.asc"
 
   tasks:
-  - name: Install EPEL repo
+  - name: Install required packages
     yum:
       name: '{{ item }}'
       state: 'present'
@@ -12,7 +14,7 @@
       - epel-release
       - kernel-devel
       - dkms
-      - @development
+      - "@development"
 
   - name: Setup Virtualbox repo
     copy: 
@@ -22,7 +24,7 @@
 
   - name: VirtualBox signing key
     rpm_key:
-      key: http://www.virtualbox.org/download/oracle_vbox.asc
+      key: "{{ virtualbox_repo_key }}"
       state: 'present'
 
   - name: Install VirtualBox
