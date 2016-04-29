@@ -180,6 +180,9 @@ assert_prerequisites() {
   else
     _gnrl_die "Internet connection is NOT available(google.com)\n"
   fi
+
+  assert_system_is_latest
+
 }
 #===================================================================================
 ###  main
@@ -197,7 +200,6 @@ install_ansible
 
 # Provision hypervisor host(localhost)
 _gnrl_assert_file_exists "playbooks/provision_virtualbox.yml"
-assert_system_is_latest
 ok_msg "Running \"ansible-playbook playbooks/provision_virtualbox.yml\"" 
 ansible-playbook playbooks/provision_virtualbox.yml || _gnrl_die "Went wrong. Debug"
 

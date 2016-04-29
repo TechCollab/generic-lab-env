@@ -3,7 +3,7 @@
   user: root
   hosts: control
   vars:
-    virtualbox_repo_key: "http://www.virtualbox.org/download/oracle_vbox.asc"
+    virtualbox_repo_key: "https://www.virtualbox.org/download/oracle_vbox.asc"
 
   tasks:
   - name: Install required packages
@@ -24,8 +24,8 @@
 
   - name: VirtualBox signing key
     rpm_key:
-      key: "{{ virtualbox_repo_key }}"
       state: 'present'
+      key: "{{ virtualbox_repo_key }}"
 
   - name: Install VirtualBox
     yum:
