@@ -1,11 +1,22 @@
 ---
-- name: Provision virtualbox host
+- name: Provision vagrant with virtualbox host
   user: root
   hosts: control
   vars:
-    virtualbox_repo_key: "https://www.virtualbox.org/download/oracle_vbox.asc"
-
+    virtualbox_repo_key: "playbook/files/oracle_vbox.asc"
+      # add check in the host is centos 7
   tasks:
+
+  - name: Setup Virtualbox repo
+    copy: 
+      src: files/virtualbox.repo
+      dest: /etc/yum.repos.d/virtualbox.repo
+
+  - name: VirtualBox signing key
+    rpm_key:
+      state: present
+      key: "{{ virtualbox_repo_key }}"
+
   - name: Install required packages
     yum:
       name: '{{ item }}'
@@ -15,26 +26,6 @@
       - kernel-devel
       - dkms
       - "@development"
-
-  - name: Setup Virtualbox repo
-    copy: 
-      src: files/virtualbox.repo
-      dest: /etc/yum.repos.d/virtualbox.repo
-
-
-  - name: VirtualBox signing key
-    rpm_key:
-      state: 'present'
-      key: "{{ virtualbox_repo_key }}"
-
-  - name: Install VirtualBox
-    yum:
-      name: "VirtualBox-5.0"
-      state: 'present'
-
-  - name: Install vagrant and required libraries
-    yum:
-      name: '{{ item }}'
-      state: 'present'
-    with_items:
+      - VirtualBox-5.0
       - https://releases.hashicorp.com/vagrant/1.8.1/vagrant_1.8.1_x86_64.rpm
+
