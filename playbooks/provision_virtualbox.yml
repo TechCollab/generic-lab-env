@@ -11,12 +11,9 @@
       dest: /etc/yum.repos.d/virtualbox.repo
 
   - name: VirtualBox signing key
-    copy:
-      src: playbooks/files/oracle_vbox.asc
-      dest: /etc/pki/rpm-gpg/
-      owner: root
-      group: root
-      mode: 644
+    rpm_key:
+      key=https://www.virtualbox.org/download/oracle_vbox.asc
+      state=present
         
   - name: Install required packages
     yum:
