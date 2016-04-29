@@ -2,8 +2,6 @@
 - name: Provision vagrant with virtualbox host
   user: root
   hosts: control
-  vars:
-    virtualbox_repo_key: "playbook/files/oracle_vbox.asc"
       # add check in the host is centos 7
   tasks:
 
@@ -13,10 +11,13 @@
       dest: /etc/yum.repos.d/virtualbox.repo
 
   - name: VirtualBox signing key
-    rpm_key:
-      state: present
-      key: "{{ virtualbox_repo_key }}"
-
+    copy:
+      src: playbooks/files/oracle_vbox.asc
+      dest: /etc/pki/rpm-gpg/
+      owner: root
+      group: root
+      mode: 644
+        
   - name: Install required packages
     yum:
       name: '{{ item }}'
