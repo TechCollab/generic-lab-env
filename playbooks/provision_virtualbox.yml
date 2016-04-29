@@ -12,8 +12,11 @@
 
   - name: VirtualBox signing key
     rpm_key:
-      key=https://www.virtualbox.org/download/oracle_vbox.asc
-      state=present
+      key: "{{ item }}"
+      state: present
+    with_items:
+      - https://www.virtualbox.org/download/oracle_vbox.asc
+      - /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
         
   - name: Install required packages
     yum:
