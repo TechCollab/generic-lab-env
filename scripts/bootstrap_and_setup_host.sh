@@ -174,6 +174,7 @@ assert_prerequisites() {
   fi
 
   # Simple internet(http://google.com) connection test
+  # TODO: if proxy is around this check fails 
   wget -q --tries=10 --timeout=20 --spider http://google.com
   if [[ $? -eq 0 ]]; then
     ok_msg "Internet connection is available (google.com) \n"

@@ -1,6 +1,13 @@
 # Usage: `ansible-galaxy install -r  requirements.yml`
 # Examples: http://stackoverflow.com/questions/25230376/how-to-automatically-install-ansible-galaxy-roles
+# NOTE:
+# Ready to use roles are stored on their default place: /etc/ansible/roles/
+# Custom roles are in /<repo root>/playbooks/roles/
 
 - name: goozbach.EPEL
-  src: goozbach.EPEL
+  src:  goozbach.EPEL
+  path: roles/
+
+- name: geerlingguy.ntp
+  src:  geerlingguy.ntp
   path: roles/

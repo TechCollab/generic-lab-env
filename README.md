@@ -1,5 +1,9 @@
 # Generic Test Lab
-Template lab environmnet for learning and testing linux based tasks
+Template lab environmnet for learning and testing linux based tasks  
+Tools   
+- vagrant  
+- ansible  
+- virtualbox  
 
 ## Setup CentOS 7 lab host
 
@@ -8,8 +12,10 @@ git clone https://github.com/bboykov/generic_test_lab.git
 cd generic_test_lab;bash scripts/bootstrap_and_setup_host.sh $PWD
 ~~~
 
+
 # infra - latin and crack
 Infa boxes play the role of infrastrucure/support for all lab variants  
+To bring them up in the repo root dir do `vagrant up`  
 
 ## Networks  
 Vagrant default NAT network   
