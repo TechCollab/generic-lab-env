@@ -2,7 +2,8 @@
 - name: Provision vagrant with virtualbox host
   user: root
   hosts: control
-      # add check in the host is centos 7
+  when: ansible_distribution == 'CentOS'
+  when: ansible_distribution_major_version == '7'
   tasks:
 
   - name: Setup Virtualbox repo
@@ -27,6 +28,7 @@
       - kernel-devel
       - dkms
       - "@development"
+      - ansible
       - VirtualBox-5.0
       - https://releases.hashicorp.com/vagrant/1.8.1/vagrant_1.8.1_x86_64.rpm
 

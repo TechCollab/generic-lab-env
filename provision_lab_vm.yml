@@ -1,0 +1,16 @@
+---
+- name: Provision VMs with common base configuration
+  become: true
+  hosts: all
+  roles:
+    - geerlingguy.ntp
+  vars:
+    ntp_enabled: true
+    ntp_timezone: Europe/Sofia
+    ntp_manage_config: false
+    ntp_servers:
+      - 0.pool.ntp.org iburst
+      - 1.pool.ntp.org iburst
+      - 2.pool.ntp.org iburst
+      - 3.pool.ntp.org iburst
+#  tasks:
