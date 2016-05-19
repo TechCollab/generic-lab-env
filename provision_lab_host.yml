@@ -1,34 +1,9 @@
 ---
 - name: Provision vagrant with virtualbox host
-  user: root
   hosts: control
-  when: ansible_distribution == 'CentOS'
-  when: ansible_distribution_major_version == '7'
-  tasks:
-
-  - name: Setup Virtualbox repo
-    copy: 
-      src: files/virtualbox.repo
-      dest: /etc/yum.repos.d/virtualbox.repo
-
-  - name: VirtualBox signing key
-    rpm_key:
-      key: "{{ item }}"
-      state: present
-    with_items:
-      - https://www.virtualbox.org/download/oracle_vbox.asc
-      - /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
-        
-  - name: Install required packages
-    yum:
-      name: '{{ item }}'
-      state: 'present'
-    with_items:
-      - epel-release
-      - kernel-devel
-      - dkms
-      - "@development"
-      - ansible
-      - VirtualBox-5.0
-      - https://releases.hashicorp.com/vagrant/1.8.1/vagrant_1.8.1_x86_64.rpm
+  user: root
+  become: true
+  roles:
+    - weldpua2008.vagrant
+#  tasks:
 
