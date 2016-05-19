@@ -8,6 +8,6 @@ virutalbox_packages:
   - epel-release
   - kernel-devel
   - dkms
-  - @development
+  - "@development"
   - VirtualBox-5.0
 
