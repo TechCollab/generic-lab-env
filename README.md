@@ -1,26 +1,20 @@
 # Generic Test Lab
 Template lab environmnet for learning and testing linux based tasks  
-Tools Used to build
+Tools Used to build:
 - vagrant  
 - ansible  
 - virtualbox  
 
-## Setup CentOS 7 lab host (Installs virtualbox, vagrant and ansible)
+## Setup lab host (Installing vagrant with virtualbox provider)
 To setup freshly installed copy of CentOS 7 clone the repo and run the bootstrap script with root. 
 
 ~~~bash
-# git clone https://github.com/bboykov/generic_test_lab.git
-# cd generic_test_lab;bash scripts/bootstrap_and_setup_host.sh $PWD
-~~~
-
-## Setup lab without bootstraping the host
-If you already have working environment with virtualbox, vagrant and ansible you can just install required ansible roles
-
-~~~bash
 $ git clone https://github.com/bboykov/generic_test_lab.git
-$ cd generic_test_lab
-$ sudo ansible-galaxy install --force -r playbooks/requirements.yml
+$ cd generic_test_lab;
+$ sudo ansible-galaxy install --force -r requirements.yml
+$ ansible-playbook  provision_lab_host.yml # Make sure to update your system to latest before running.
 ~~~
+
 
 # Lab infra overview
 ## Infra VMs - latin and crack
