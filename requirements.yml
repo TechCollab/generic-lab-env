@@ -12,6 +12,7 @@
   src:  geerlingguy.ntp
   path: roles/
 
-- name: weldpua2008.vagrant
-  src:  weldpua2008.vagrant
-  path: roles/
+# Move to static with corrections to ./roles/
+#- name: weldpua2008.vagrant
+#  src:  weldpua2008.vagrant
+#  path: roles/

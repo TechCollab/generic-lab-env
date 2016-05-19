@@ -6,13 +6,18 @@ Tools Used to build:
 - virtualbox  
 
 ## Setup lab host (Installing vagrant with virtualbox provider)
-To setup freshly installed copy of CentOS 7 clone the repo and run the bootstrap script with root. 
+To setup freshly installed copy of CentOS 7 clone the repo and run the below.
+
+Prerequisites: 
+- System to be latest
+- git and ansible must be installed
 
 ~~~bash
 $ git clone https://github.com/bboykov/generic_test_lab.git
-$ cd generic_test_lab;
+$ cd generic_test_lab && sudo bash scripts/install_prereqs.sh
 $ sudo ansible-galaxy install --force -r requirements.yml
-$ ansible-playbook  provision_lab_host.yml # Make sure to update your system to latest before running.
+$ # Make sure to update your system to latest before running provision_lab_host.yml
+$ ansible-playbook  provision_lab_host.yml 
 ~~~
 
 
