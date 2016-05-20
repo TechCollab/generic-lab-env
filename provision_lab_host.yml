@@ -4,6 +4,6 @@
   user: root
   become: true
   roles:
-    - weldpua2008.vagrant
+    - bboykov.vagrant
 #  tasks:
 

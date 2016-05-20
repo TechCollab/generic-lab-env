@@ -7,8 +7,7 @@
 
 - name: Install package for Oracle Linux / RHEL / CentOS
   yum:
-    name={{vagrant_tmp_file}}
-    state=present
+    name={{vagrant_tmp_file}} state=present
   changed_when: false
   tags:
     - vagrant
@@ -22,6 +21,12 @@
   tags:
     - vagrant
 
+# EPEL repo due to dkms package
+- name: Install epel-release package
+  yum:
+    name: epel-release
+    state: 'present'
+
 - name: Refresh repository cache
   shell: yum makecache -y
   changed_when: false
@@ -32,8 +37,8 @@
 
 - name: Install VirtualBox
   yum:
-    name={{item}}
-    state=present
+    name: '{{ item }}'
+    state: 'present'
   with_items: virutalbox_packages
   #changed_when: false
   tags:

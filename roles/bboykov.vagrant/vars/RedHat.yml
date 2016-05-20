@@ -5,7 +5,6 @@ vagrant_url: "https://releases.hashicorp.com/vagrant/{{vagrant_version}}/{{vagra
 vagrant_tmp_file: "{{vagrant_tmp}}/{{vagrant_file}}"
 # Ref: https://wiki.centos.org/HowTos/Virtualization/VirtualBox
 virutalbox_packages:
-  - epel-release
   - kernel-devel
   - dkms
   - "@development"
