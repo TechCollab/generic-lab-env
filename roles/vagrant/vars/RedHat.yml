@@ -1,0 +1,12 @@
+vagrant_file: "vagrant_{{vagrant_version}}_{{vagrant_arch_ext}}.rpm"
+#vagrant_url: "https://dl.bintray.com/mitchellh/vagrant/{{vagrant_file}}"
+vagrant_url: "https://releases.hashicorp.com/vagrant/{{vagrant_version}}/{{vagrant_file}}"
+
+vagrant_tmp_file: "{{vagrant_tmp}}/{{vagrant_file}}"
+# Ref: https://wiki.centos.org/HowTos/Virtualization/VirtualBox
+virutalbox_packages:
+  - dkms
+  - "@development"
+  - kernel-devel
+  - VirtualBox-5.0
+
