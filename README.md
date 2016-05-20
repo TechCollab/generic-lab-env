@@ -9,10 +9,10 @@ Tools Used to build:
 To setup freshly installed copy of CentOS 7 clone the repo and run the below.
 
 Prerequisites: 
-- System to be latest
+- System to be up to date 
 - git and ansible must be installed
 
-~~~bash
+~~~
 $ git clone https://github.com/bboykov/generic_test_lab.git
 $ cd generic_test_lab && sudo bash scripts/install_prereqs.sh
 $ sudo ansible-galaxy install --force -r requirements.yml
@@ -24,15 +24,15 @@ $ ansible-playbook  provision_lab_host.yml
 # Lab infra overview
 ## Infra VMs - latin and crack
 Infa boxes play the role of infrastrucure/support for all lab variants  
-To bring them up in the repo root dir do `vagrant up`  
+To bring them up in the project home dir do `vagrant up`  
 
 ### Multi Purpose Server 1 (latin)  
 **Service:** DNS Server  
-Service FQDN: dns.penguin.example.com
+Service FQDN: dns.penguin.example.com  
 penguin.example.com.zone  
 penguin.example.com.revzone  
         
-**Service:** HTTP Repository    
+**Service:** HTTP Repository      
 
 ### Multi Purpose Server 2 (crack)      
 **Service:** NFS Server  

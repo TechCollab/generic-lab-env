@@ -1,8 +1,0 @@
-- name: Setup for vagrant boxes
-  hosts: all
-  become: true
-  gather_facts: true
-#  vars:
-#    freebsd_install_from_ports: True
-  roles:
-    - ansible-galaxy-vagrant

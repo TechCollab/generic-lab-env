@@ -4,6 +4,6 @@
   user: root
   become: true
   roles:
-    - bboykov.vagrant
+    - ansible-role-vagrant
 #  tasks:
 
