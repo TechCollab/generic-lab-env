@@ -15,7 +15,7 @@ Prerequisites:
 ~~~
 $ git clone https://github.com/bboykov/generic_test_lab.git
 $ cd generic_test_lab && sudo bash scripts/install_prereqs.sh
-$ sudo ansible-galaxy install --force -r requirements.yml
+$ sudo ansible-galaxy install --force -r ansible/requirements.yml 
 $ # Make sure to update your system to latest before running provision_lab_host.yml
 $ ansible-playbook  provision_lab_host.yml 
 ~~~

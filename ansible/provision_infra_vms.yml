@@ -4,7 +4,7 @@
   hosts: all
   roles:
     - geerlingguy.firewall
-    - bertvv.bind
+#    - bertvv.bind
   vars:
     firewall_allowed_tcp_ports:
       - "22"

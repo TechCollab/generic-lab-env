@@ -2,21 +2,28 @@
 # vi: set ft=ruby :
 # RHEL 6 boxes
 
+hosts = [
+  { name: 'balsa', ip: '192.168.55.30' },
+  { name: 'benny' , ip: '192.168.55.31' }
+]
+
 Vagrant.configure(2) do |config|
   config.vm.box = "szops/centos-6-x86_64"
 
-  config.vm.define :balsa do |balsa|
-    balsa.vm.hostname = "balsa"
-    balsa.vm.network :private_network, ip: "192.168.55.30"
-  end
 
-  config.vm.define :benny do |benny|
-    benny.vm.hostname = "benny"
-    benny.vm.network :private_network, ip: "192.168.55.31"
+  hosts.each do |host|
+    host_name = host[:name]
+    config.vm.define host_name do |node|
+      node.vm.hostname = host_name
+      node.vm.network 'private_network', ip: host[:ip]
+      #node.vm.provision 'ansible' do |ansible|
+      #  ansible.playbook = 'ansible/provision_infra_vms.yml'
+      #end
+    end
   end
 
   config.vm.provision "ansible" do |ansible|
-      ansible.playbook          = "provision_lab_vm.yml"
+      ansible.playbook          = "./ansible/provision_lab_vm.yml"
       ansible.host_key_checking = "false"
     end
 end

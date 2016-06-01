@@ -6,3 +6,7 @@ latin ansible_ssh_host=192.168.55.10
 crack ansible_ssh_host=192.168.55.11
 balsa ansible_ssh_host=192.168.55.30
 benny ansible_ssh_host=192.168.55.31
+
+[infra]
+latin ansible_ssh_host=192.168.55.10
+crack ansible_ssh_host=192.168.55.11

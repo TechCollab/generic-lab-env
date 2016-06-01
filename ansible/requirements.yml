@@ -6,15 +6,16 @@
 
 - name: goozbach.EPEL
   src:  goozbach.EPEL
-  path: roles/
 
 - name: geerlingguy.ntp
   src:  geerlingguy.ntp
-  path: roles/
 
 - name: geerlingguy.firewall
   src:  geerlingguy.firewall
-  path: roles/
+
+- name: bertvv.bind
+  src:  bertvv.bind
+
 # Move to static with corrections to ./roles/
 #- name: weldpua2008.vagrant
 #  src:  weldpua2008.vagrant
