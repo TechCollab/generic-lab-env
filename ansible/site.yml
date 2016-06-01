@@ -1,5 +1,6 @@
 ---
-- hosts: all
+- name: Provision all lab VMs with common configuration
+  hosts: all
   become: true
   roles:
     - geerlingguy.ntp
@@ -17,5 +18,12 @@
     firewall_allowed_tcp_ports:
       - "22"
 
-#- hosts: infra
+- name: Provision lab infra - DNS, NFS, HTTP services
+  hosts: latin:crack
+  become: true
+  roles:
+    - geerlingguy.firewall
+  vars:
+    firewall_allowed_tcp_ports:
+      - "22"
 

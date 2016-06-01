@@ -11,6 +11,16 @@
   ram: 512
   ip: 192.168.55.11
 
+- name: balsa
+  box: szops/centos-6-x86_64
+  ram: 512
+  ip: 192.168.55.31
+
+- name: benny
+  box: szops/centos-6-x86_64
+  ram: 512
+  ip: 192.168.55.32
+
 #- name: balsa
 #  box: szops/centos-6-x86_64
 #  ram: 512
