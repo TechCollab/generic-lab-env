@@ -1,60 +1,36 @@
+# How it works:
+# See http://blog.scottlowe.org/2014/10/22/multi-machine-vagrant-with-yaml/ for details.
 # -*- mode: ruby -*-
-# vi: set ft=ruby :
-
-infra_hosts = [
-  { name: 'latin' , ip: '192.168.55.10' },
-  { name: 'crack' , ip: '192.168.55.11' }
-]
-
-Vagrant.configure(2) do |config|
-  #config.vm.box = "szops/centos-6-x86_64"
-  config.vm.box = "relativkreativ/centos-7-minimal"
-
-  infra_hosts.each do |host|
-    host_name = host[:name]
-    config.vm.define host_name do |node|
-      node.vm.hostname = host_name 
-      node.vm.network 'private_network', ip: host[:ip]
-      node.vm.provision 'ansible' do |ansible|
-        ansible.playbook = 'ansible/provision_infra_vms.yml'
+# # vi: set ft=ruby :
+ 
+# Specify minimum Vagrant version and Vagrant API version
+Vagrant.require_version ">= 1.6.0"
+VAGRANTFILE_API_VERSION = "2"
+ 
+# Require YAML module
+require 'yaml'
+ 
+# Read YAML file with box details
+vagrantvms = YAML.load_file('vagrantvms.yml')
+ 
+# Create boxes
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+ 
+  # Iterate through entries in YAML file
+  vagrantvms.each do |vagrantvms|
+    config.vm.define vagrantvms["name"] do |srv|
+      srv.vm.box = vagrantvms["box"]
+      srv.vm.network "private_network", ip: vagrantvms["ip"]
+      srv.vm.provider :virtualbox do |vb|
+        vb.name = vagrantvms["name"]
+        vb.memory = vagrantvms["ram"]
       end
     end
-
-    config.vm.provision "ansible" do |ansible|
-          # Auto-Generated Inventory is used
-          # For details see: https://www.vagrantup.com/docs/provisioning/ansible_intro.html 
-          #ansible.inventory_path    = "hosts" 
-          ansible.playbook          = "ansible/provision_lab_vm.yml"
-          ansible.host_key_checking = "false"
-          #ansible.verbose = "v"
-    end
   end
-end
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-# RHEL 6 boxes
 
-rhel6_hosts = [
-  { name: 'balsa' , ip: '192.168.55.30' },
-  { name: 'benny' , ip: '192.168.55.31' }
-]
-
-Vagrant.configure(2) do |config|
-  config.vm.box = "szops/centos-6-x86_64"
-
-
-  rhel6_hosts.each do |host|
-    host_name = host[:name]
-    config.vm.define host_name do |node|
-      node.vm.hostname = host_name
-      node.vm.network 'private_network', ip: host[:ip]
-      #node.vm.provision 'ansible' do |ansible|
-      #  ansible.playbook = 'ansible/provision_infra_vms.yml'
-      #end
-    end
-    config.vm.provision "ansible" do |ansible|
-      ansible.playbook          = "ansible/provision_lab_vm.yml"
-      ansible.host_key_checking = "false"
-    end
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook          = "ansible/site.yml"
+    ansible.host_key_checking = "false"
+    #ansible.verbose           = "v"
   end
 end
