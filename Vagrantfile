@@ -2,7 +2,8 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "szops/centos-6-x86_64"
+  #config.vm.box = "szops/centos-6-x86_64"
+  config.vm.box = "relativkreativ/centos-7-minimal"
 
   config.vm.define :latin do |latin|
     latin.vm.hostname = "latin"
@@ -17,7 +18,7 @@ Vagrant.configure(2) do |config|
       # Auto-Generated Inventory is used
       # For details see: https://www.vagrantup.com/docs/provisioning/ansible_intro.html 
       #ansible.inventory_path    = "hosts" 
-      #ansible.playbook          = "playbooks/provision_vm22.yml"
+      #ansible.playbook          = "ansible/provision_vm22.yml"
       #ansible.host_key_checking = "false"
       #ansible.verbose = "v"
     #end
@@ -27,13 +28,14 @@ Vagrant.configure(2) do |config|
       # Auto-Generated Inventory is used
       # For details see: https://www.vagrantup.com/docs/provisioning/ansible_intro.html 
       #ansible.inventory_path    = "hosts" 
-      ansible.playbook          = "provision_lab_vm.yml"
+      ansible.playbook          = "ansible/provision_lab_vm.yml"
       ansible.host_key_checking = "false"
       ansible.verbose = "v"
     end
 end
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
+# Test subjects
 
 Vagrant.configure(2) do |config|
   config.vm.box = "szops/centos-6-x86_64"
@@ -49,7 +51,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provision "ansible" do |ansible|
-      ansible.playbook          = "provision_lab_vm.yml"
+      ansible.playbook          = "ansible/provision_lab_vm.yml"
       ansible.host_key_checking = "false"
     end
 end
