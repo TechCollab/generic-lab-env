@@ -20,13 +20,20 @@ $ # Make sure to update your system to latest before running provision_lab_host.
 $ ansible-playbook  provision_lab_host.yml 
 ~~~
 
+## Provision the lab (Create and configure the VMs)
+Infa boxes play the role of infrastrucure/support for all lab variants  
+To bring them up in the project home dir do 
+
+~~~
+vagrant up
+~~~
+
+All boxes are and should be described in `vagrantvms.yml`. 
+
 
 # Lab infra overview
 ## Infra VMs - latin and crack
-Infa boxes play the role of infrastrucure/support for all lab variants  
-To bring them up in the project home dir do `vagrant up`  
 
-### Multi Purpose Server 1 (latin)  
 **Service:** DNS Server  
 Service FQDN: dns.penguin.example.com  
 penguin.example.com.zone  
@@ -34,7 +41,6 @@ penguin.example.com.revzone
         
 **Service:** HTTP Repository      
 
-### Multi Purpose Server 2 (crack)      
 **Service:** NFS Server  
 Service FQDN: nfs01.penguin.example.com  
 Shares:  
@@ -46,6 +52,5 @@ Shares:
 Vagrant default NAT network   
 192.168.55.0/24 penguin.example.com   
 
-## Services
 
 
