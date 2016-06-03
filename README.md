@@ -1,9 +1,8 @@
-# Generic Test Lab
+# Generic Lab Environment
 Template lab environmnet for learning and testing linux based tasks  
 Tools Used to build:
-- vagrant  
+- vagrant with virtualbox
 - ansible  
-- virtualbox  
 
 ## Setup lab host (Installing vagrant with virtualbox provider)
 To setup freshly installed copy of CentOS 7 clone the repo and run the below.
@@ -31,8 +30,7 @@ vagrant up
 All boxes are and should be described in `vagrantvms.yml`. 
 
 
-# Lab infra overview
-## Infra VMs - latin and crack
+# Lab prebuild services
 
 **Service:** DNS Server  
 Service FQDN: dns.penguin.example.com  
