@@ -16,13 +16,11 @@ vagrantvms = YAML.load_file('vagrantvms.yml')
 # Create boxes
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  # Use the same key for each machine
-  config.ssh.insert_key = false
- 
   # Iterate through entries in YAML file
   vagrantvms.each do |vagrantvms|
     config.vm.define vagrantvms["name"] do |srv|
       srv.vm.box = vagrantvms["box"]
+      srv.vm.hostname = vagrantvms["name"]
       srv.vm.network "private_network", ip: vagrantvms["ip"]
       srv.vm.provider :virtualbox do |vb|
         vb.name = vagrantvms["name"]

@@ -2,21 +2,21 @@
 # See http://blog.scottlowe.org/2014/10/22/multi-machine-vagrant-with-yaml/ for details.
 
 - name: latin
-  box: bertvv/centos72
+  box: geerlingguy/centos7
   ram: 1024
   ip: 192.168.55.10
 
 - name: crack
-  box: bertvv/centos72
+  box: geerlingguy/centos7
   ram: 1024
   ip: 192.168.55.11
 
 - name: balsa
-  box: szops/centos-6-x86_64
+  box: geerlingguy/centos6
   ram: 512
   ip: 192.168.55.31
 
 - name: benny
-  box: szops/centos-6-x86_64
+  box: geerlingguy/centos6
   ram: 512
   ip: 192.168.55.32
