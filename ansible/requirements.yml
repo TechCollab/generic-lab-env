@@ -1,22 +1,37 @@
-# Usage: `ansible-galaxy install -r  requirements.yml`
+# Usage: 
+#   cd /<repo_root>/
+#   ansible-galaxy install -r  ansible/requirements.yml
 # Examples: http://stackoverflow.com/questions/25230376/how-to-automatically-install-ansible-galaxy-roles
-# NOTE:
-# Ready to use roles are stored on their default place: /etc/ansible/roles/
-# Custom roles are in /<repo root>/playbooks/roles/
-
+# More examples:
+# # Role on galaxy
+# - you.rolename
+# # Public role on github
+# - name: role-public
+#   src: https://github.com/erasme/role-public.git
+# # Private role on github
+# - name: role-private
+#   src: git+ssh://git@github.com/you/role-private.git
+#
+# outdoor 
 - name: goozbach.EPEL
   src:  goozbach.EPEL
-
-- name: geerlingguy.ntp
-  src:  geerlingguy.ntp
+  path: ./ansible/roles/outdoor
 
 - name: geerlingguy.firewall
   src:  geerlingguy.firewall
+  path: ./ansible/roles/outdoor
 
 - name: bertvv.bind
   src:  bertvv.bind
+  path: ./ansible/roles/outdoor
 
-# Move to static with corrections to ./roles/
-#- name: weldpua2008.vagrant
-#  src:  weldpua2008.vagrant
-#  path: roles/
+# In-house
+- name: ntp
+  src:  https://github.com/bboykov/ansible-role-ntp.git 
+  path: ./ansible/roles/outdoor
+
+- name: vagrant
+  src:  https://github.com/bboykov/ansible-role-vagrant
+  path: ./ansible/roles/outdoor
+
+
