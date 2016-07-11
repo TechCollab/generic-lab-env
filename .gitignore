@@ -1,2 +1,4 @@
-# Vagrant
-.vagrant/
+**/.vagrant/
+**/playbook.retry
+**/ansible/roles/external
+**/ansible/roles/in-house
