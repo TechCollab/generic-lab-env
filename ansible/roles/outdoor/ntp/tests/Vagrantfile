@@ -1,0 +1,33 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+# How it works:
+# See http://blog.scottlowe.org/2014/10/22/multi-machine-vagrant-with-yaml/ for details.
+# Specify minimum Vagrant version and Vagrant API version
+Vagrant.require_version ">= 1.6.0"
+VAGRANTFILE_API_VERSION = "2"
+ 
+# Require YAML module
+require 'yaml'
+ 
+# Read YAML file with box details
+vagrantvms = YAML.load_file('vagrantvms.yml')
+ 
+# Create boxes
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  # Iterate through entries in YAML file
+  vagrantvms.each do |vagrantvms|
+    config.vm.define vagrantvms["name"] do |srv|
+      srv.vm.box = vagrantvms["box"]
+      srv.vm.hostname = vagrantvms["name"]
+      srv.vm.network "private_network", type: 'dhcp'
+      srv.vm.provider :virtualbox do |vb|
+        vb.name = vagrantvms["name"]
+      end
+    end
+  end
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook          = "playbook.yml"
+    ansible.host_key_checking = "false"
+    #ansible.verbose           = "v"
+  end
+end

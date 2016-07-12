@@ -1,0 +1,67 @@
+# Setup for Vagrant
+
+- set_fact:
+    vagrant_arch_ext="i686"
+  when: ansible_architecture == "i386"
+  tags:
+    - vagrant
+
+- set_fact:
+    vagrant_arch_ext="x86_64"
+  when: ansible_architecture == "x86_64"
+  tags:
+    - vagrant
+
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+  tags:
+    - vagrant
+
+- name: Download Vagrant
+  get_url:
+    url: "{{ vagrant_url }}" 
+    dest: "{{vagrant_tmp_file}}" 
+    force: no 
+    validate_certs: no
+  when: download_vagrant|bool
+  tags:
+    - vagrant
+
+
+- name: Install when Debian 
+  when: ansible_os_family == 'Debian'
+  include: install-debian.yml
+  tags:
+    - vagrant
+
+- name: Install when RedHat
+#  when: "ansible_os_family == 'Debian'"
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux' or ansible_distribution == 'RedHat'
+  include: install-redhat.yml
+  tags:
+    - vagrant
+
+- name: Install when Fedora
+  when: ansible_distribution == "Fedora"
+  include: install-fedora.yml
+  tags:
+    - vagrant
+
+- name: Install when SUSE
+  when: ansible_os_family == 'Suse' or ansible_distribution == 'SLES' or ansible_distribution == 'OES' or ansible_distribution == 'Suse' or ansible_distribution == 'openSUSE'
+#  when: ansible_distribution == 'SLES' or ansible_distribution == 'OES' or ansible_distribution == 'Suse' or ansible_distribution == 'openSUSE'
+  include: install-suse.yml
+  tags:
+    - vagrant
+
+- name: Install when FreeBSD
+  when: ansible_os_family == 'FreeBSD'
+  include: install-freebsd.yml
+  tags:
+    - vagrant
+
+- name: Install when Gentoo
+  when: ansible_os_family == 'Gentoo '
+  include: install-gentoo.yml
+  tags:
+    - vagrant

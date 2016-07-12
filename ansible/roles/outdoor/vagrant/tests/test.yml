@@ -1,0 +1,6 @@
+# test file for ansible-galaxy-vagrant
+---
+- hosts: localhost
+  remote_user: root
+  roles:
+    - ansible-galaxy-vagrant
