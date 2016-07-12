@@ -1,0 +1,8 @@
+# How it works:
+# See http://blog.scottlowe.org/2014/10/22/multi-machine-vagrant-with-yaml/ for details.
+
+- name: el7-base-vm
+  box: bertvv/centos72
+    
+- name: precise64
+  box: ubuntu/precise64
