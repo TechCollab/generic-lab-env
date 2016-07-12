@@ -1,8 +1,0 @@
-# roles/bind/vars/main.yml
----
-
-bind_packages:
-  - bind
-  - bind-utils
-
-bind_service: named
