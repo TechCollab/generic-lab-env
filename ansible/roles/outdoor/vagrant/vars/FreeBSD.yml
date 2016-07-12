@@ -1,2 +1,0 @@
-freebsd_install_from_ports: True
-download_vagrant: False

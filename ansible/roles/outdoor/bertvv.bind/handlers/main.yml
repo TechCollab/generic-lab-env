@@ -1,7 +1,0 @@
-# roles/bind/handlers/main.yml
----
-
-- name: restart bind
-  service:
-    name: named
-    state: restarted

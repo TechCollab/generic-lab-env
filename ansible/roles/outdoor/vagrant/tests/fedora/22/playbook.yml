@@ -1,8 +1,0 @@
-- name: Setup for vagrant boxes
-  hosts: all
-  sudo: yes
-  gather_facts: true
-#  vars:
-
-  roles:
-    - ansible-galaxy-vagrant
