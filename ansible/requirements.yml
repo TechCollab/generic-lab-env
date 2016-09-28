@@ -12,7 +12,7 @@
 # - name: role-private
 #   src: git+ssh://git@github.com/you/role-private.git
 #
-# outdoor 
+# External roles
 - name: goozbach.EPEL
   src:  goozbach.EPEL
   path: ./ansible/roles/outdoor
@@ -25,7 +25,6 @@
   src:  bertvv.bind
   path: ./ansible/roles/outdoor
 
-# In-house
 - name: ntp
   src:  https://github.com/bboykov/ansible-role-ntp.git 
   path: ./ansible/roles/outdoor

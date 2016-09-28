@@ -1,6 +1,6 @@
 ---
 - name: Provision vagrant with virtualbox host
-  hosts: labhost
+  hosts: localhost
   user: root
   become: true
   roles:

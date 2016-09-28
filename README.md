@@ -14,7 +14,7 @@ Prerequisites:
 ~~~
 $ git clone https://github.com/TechCollab/generic-lab-env.git && cd generic-lab-env
 $ sudo ansible-galaxy install --force -r ansible/requirements.yml 
-$ ansible-playbook  ansible/provision_lab_host.yml
+$ ansible-playbook -c localhost ansible/provision_lab_host.yml
 ~~~
 
 ## Provision the lab 

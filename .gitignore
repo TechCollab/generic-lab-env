@@ -1,3 +1,4 @@
 **/.vagrant/
 **/playbook.retry
+**/site.retry
 **/outdoor/
