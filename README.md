@@ -1,30 +1,28 @@
 # Generic Lab Environment
 Template lab environmnet for learning and testing linux based tasks  
-Tools Used to build:
-- vagrant with virtualbox
+Tools Set:
+- vagrant 
+- virtualbox
 - ansible  
 
-## Setup lab host (Installing vagrant with virtualbox provider)
-To setup freshly installed copy of CentOS 7 clone the repo and run the below.
+## Setup lab host 
 
 Prerequisites: 
-- System to be up to date 
+- System must be up to date 
 - git and ansible must be installed
 
 ~~~
-$ git clone https://github.com/bboykov/generic_test_lab.git
-$ cd generic_test_lab && sudo bash scripts/install_prereqs.sh
+$ git clone https://github.com/TechCollab/generic-lab-env.git && cd generic-lab-env
 $ sudo ansible-galaxy install --force -r ansible/requirements.yml 
-$ # Make sure to update your system to latest before running provision_lab_host.yml
-$ ansible-playbook  provision_lab_host.yml 
+$ ansible-playbook  ansible/provision_lab_host.yml
 ~~~
 
-## Provision the lab (Create and configure the VMs)
+## Provision the lab 
 Infa boxes play the role of infrastrucure/support for all lab variants  
 To bring them up in the project home dir do 
 
 ~~~
-vagrant up
+$ vagrant up
 ~~~
 
 All boxes are and should be described in `vagrantvms.yml`. 
