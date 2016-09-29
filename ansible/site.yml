@@ -5,45 +5,44 @@
   roles:
     - role: ntp
 
-- name: Provision lab infra - DNS, NFS, HTTP services
-  hosts: latin:crack
-  become: true
-  roles:
-    - role: geerlingguy.firewall
-      firewall_allowed_tcp_ports:
-        - "53"
-      firewall_allowed_udp_ports:
-        - "53"
-
-    - role: bertvv.bind
-      bind_listen_ipv4:
-        - any
-      bind_allow_query:
-        - any
-      bind_rrset_order: random
-      bind_recursion: false
-
-      bind_zone_name: penguin.example.com
-      bind_zone_networks:
-        - '92.168.55'
-      bind_zone_master_server_ip: 192.168.55.10
-      bind_zone_name_servers:
-        - latin
-        - crack
-      bind_zone_hosts:
-        - name: latin
-          ip: 192.168.55.10
-          aliases:
-            - ns1
-        - name: crack
-          ip: 192.168.55.11
-          aliases:
-            - ns2
-        - name: mail
-          ip: 192.168.55.10
-          aliases:
-            - smtp
-            - imap
-        - name: balsa
-          ip: 192.168.55.31
-
+ # - name: Provision lab infra - DNS, NFS, HTTP services
+ #   hosts: latin:crack
+ #   become: true
+ #   roles:
+ #     - role: geerlingguy.firewall
+ #       firewall_allowed_tcp_ports:
+ #         - "53"
+ #       firewall_allowed_udp_ports:
+ #         - "53"
+ #           ip: 192.168.55.31
+ #
+ #     - role: bertvv.bind
+ #       bind_listen_ipv4:
+ #         - any
+ #       bind_allow_query:
+ #         - any
+ #       bind_rrset_order: random
+ #       bind_recursion: false
+ #
+ #       bind_zone_name: penguin.example.com
+ #       bind_zone_networks:
+ #         - '92.168.55'
+ #       bind_zone_master_server_ip: 192.168.55.10
+ #       bind_zone_name_servers:
+ #         - latin
+ #         - crack
+ #       bind_zone_hosts:
+ #         - name: latin
+ #           ip: 192.168.55.10
+ #           aliases:
+ #             - ns1
+ #         - name: crack
+ #           ip: 192.168.55.11
+ #           aliases:
+ #             - ns2
+ #         - name: mail
+ #           ip: 192.168.55.10
+ #           aliases:
+ #             - smtp
+ #             - imap
+ #
