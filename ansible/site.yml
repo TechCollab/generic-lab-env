@@ -3,5 +3,7 @@
   hosts: all
   become: true
   roles:
-    - role: ntp
+    - role: update
+      update_and_reboot: yes
 
+    - role: ntp
