@@ -13,18 +13,6 @@
 #   src: git+ssh://git@github.com/you/role-private.git
 #
 # External roles
-- name: goozbach.EPEL
-  src:  goozbach.EPEL
-  path: ./ansible/roles/outdoor
-
-- name: geerlingguy.firewall
-  src:  geerlingguy.firewall
-  path: ./ansible/roles/outdoor
-
-- name: bertvv.bind
-  src:  bertvv.bind
-  path: ./ansible/roles/outdoor
-
 - name: ntp
   src:  https://github.com/bboykov/ansible-role-ntp.git 
   path: ./ansible/roles/outdoor
