@@ -13,12 +13,17 @@
 #   src: git+ssh://git@github.com/you/role-private.git
 #
 # External roles
-- name: ntp
-  src:  https://github.com/bboykov/ansible-role-ntp.git 
-  path: ./ansible/roles/outdoor
-
 - name: vagrant
   src:  https://github.com/bboykov/ansible-role-vagrant
-  path: ./ansible/roles/outdoor
+  path: ./ansible/roles
+
+- name: ntp
+  src:  https://github.com/bboykov/ansible-role-ntp.git 
+  path: ./ansible/roles
+
+- name: update
+  src:  https://github.com/bboykov/ansible-role-update.git 
+  path: ./ansible/roles
+
 
 
